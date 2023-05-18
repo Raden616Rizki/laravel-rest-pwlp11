@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMahasiswaRequests;
+use App\Http\Requests\UpdateMahasiswaRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\MahasiswaResource;
 use App\Models\Mahasiswa;
@@ -83,9 +84,17 @@ class MahasiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateMahasiswaRequest $request, Mahasiswa $mahasiswa)
     {
         //
+        $mahasiswa->update([
+            'nim' => $request->nim,
+            'nama' => $request->nama,
+            'jurusan' => $request->jurusan,
+            'no_hp' => $request->no_hp,
+            'kelas_id' => $request->kelas_id,
+        ]);
+        return new MahasiswaResource($mahasiswa);
     }
 
     /**
